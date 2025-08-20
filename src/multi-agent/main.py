@@ -1,14 +1,29 @@
-from openai_client import chat_with_gpt
-from furhat_client import furhat_listen, furhat_speak
+from openai_client import agents, ask_gpt
+from furhat_remote_api import FurhatRemoteAPI
 
 def main():
-    while True:
-        user_text = furhat_listen()
-        if user_text.lower() in ["quit", "exit"]:
-            break
+    furhat = FurhatRemoteAPI("localhost")
 
-        gpt_response = chat_with_gpt(user_text)
-        furhat_speak(gpt_response)
+    voices = furhat.get_voices()
+    furhat.set_voice(name="Matthew")
+
+    furhat.say(text="Hello!")
+    furhat.gesture(name="BrowRaise")
+
+    #agent_manager = agents()
+
+    while True:
+        result = furhat.listen()
+        user_text = result.message
+        if (user_text == "" ):
+            continue
+        print(f"User said: {user_text}")
+
+        gpt_response = ask_gpt(str(user_text))
+        print(f'Responces: {gpt_response}')
+        furhat.say(text=gpt_response)
+
+
 
 if __name__ == "__main__":
     main()
