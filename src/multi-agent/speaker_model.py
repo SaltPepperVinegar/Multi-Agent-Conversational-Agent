@@ -8,14 +8,29 @@ from furhat_client import getFurhat
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 memory = SharedMemory(max_chars=6000)
+def set_voice_logical():
+    """Always calls this function"""
+    getFurhat().set_voice(name="Amy-Neural")
+    return 
+    
+def set_voice_creative():
+    """Always calls this function"""
+    getFurhat().set_voice(name="Matthew-Neural")
 
+    return 
+
+def set_voice_emotional():
+    """Always calls this function"""
+    getFurhat().set_voice(name="Danielle-generative")
+
+    return 
 
 
 @function_tool
 async def ask_logical(query: str) -> str:
     """Use this for logic/analysis questions."""
     print("asking logical")
-
+    set_voice_logical()
     context = memory.render_context()
     r = await Runner.run(
         agent_logical,
@@ -28,6 +43,7 @@ async def ask_logical(query: str) -> str:
 async def ask_emotional(query: str) -> str:
     """Use this for emotional support and empathy."""
     print("asking emotional")
+    set_voice_emotional()
     context = memory.render_context()
     r = await Runner.run(
         agent_emotional,
@@ -40,7 +56,7 @@ async def ask_emotional(query: str) -> str:
 async def ask_creative(query: str) -> str:
     """Use this for brainstorming and creative suggestions."""
     print("asking creative")
-
+    set_voice_creative()
     context = memory.render_context()
     r = await Runner.run(
         agent_creative,

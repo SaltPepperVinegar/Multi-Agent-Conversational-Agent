@@ -12,6 +12,7 @@ memory = SharedMemory(max_chars=6000)
 
 
 
+
 @function_tool
 async def ask_logical(query: str) -> str:
     """Use this for logic/analysis questions."""

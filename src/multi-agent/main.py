@@ -1,5 +1,5 @@
 import asyncio
-from orchestration_model import query
+from speaker_model import query
 from furhat_client import *
 
 
@@ -11,7 +11,7 @@ async def main():
 
     furhat.say(text="Hello!")
     furhat.gesture(name="BrowRaise")
-    print(furhat.get_gestures())
+    furhat.get_gestures()
 
     while True:
         print("Connected, start listening")

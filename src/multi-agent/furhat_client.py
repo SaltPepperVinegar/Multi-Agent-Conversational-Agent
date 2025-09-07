@@ -4,5 +4,5 @@ furhat = FurhatRemoteAPI("localhost")
 
 def getFurhat():
     return furhat    
-
+ 
 
